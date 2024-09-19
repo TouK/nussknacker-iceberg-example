@@ -77,9 +77,11 @@ services:
         condition: service_started
       nessie:
         condition: service_started
-    # For some reasons this dependency makes minio-setup stuck in Waiting state
+    # For some reasons this dependency makes minio-setup stuck in Waiting state. Because of that only dependency to minio is used
 #      minio-setup:
 #        condition: service_completed_successfully
+      minio:
+        condition: service_started
     healthcheck:
       test: [ "CMD-SHELL", "curl localhost:8080/api/app/healthCheck" ]
       interval: 10s
