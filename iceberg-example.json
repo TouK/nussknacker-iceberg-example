@@ -342,7 +342,7 @@
         "type" : "CustomNode"
       },
       {
-        "id" : "table",
+        "id" : "report",
         "ref" : {
           "typ" : "table",
           "parameters" : [
