@@ -315,6 +315,38 @@ services:
         limits:
           memory: 1024M
 
+  flink-sql-gateway:
+    build:
+      context: ./flink-sql-gateway
+      args:
+        FLINK_VERSION: "1.18.1-scala_2.12-java11"
+        FLINK_VERSION_SHORT: 1.18
+        HADOOP_VERSION: 2.8.3
+        FLINK_HADOOP_VERSION: "2.8.3-10.0"
+        AWS_SDK_VERSION: 2.26.10
+        ICEBERG_VERSION: 1.6.1
+    restart: unless-stopped
+    networks:
+      - nussknacker-iceberg-net
+    ports:
+      - "8083:8083"
+    entrypoint: >
+      /bin/sh -c "./bin/sql-gateway.sh start-foreground -Dsql-gateway.endpoint.rest.address=flink-jobmanager -Drest.address=flink-jobmanager"
+    environment:
+      - AWS_ACCESS_KEY_ID=admin
+      - AWS_SECRET_ACCESS_KEY=password
+      - AWS_REGION=us-east-1
+      - AWS_DEFAULT_REGION=us-east-1
+    depends_on:
+      flink-jobmanager:
+        condition: service_healthy
+      telegraf:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+
   telegraf:
     image: telegraf:1.30.2
     restart: unless-stopped
