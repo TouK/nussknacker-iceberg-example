@@ -2,6 +2,32 @@ name: nussknacker
 
 services:
 
+  scanario-example-setup:
+    image: touk/nussknacker-example-scenarios-library:0.4.0-SNAPSHOT
+    networks:
+      - nussknacker-iceberg-net
+    depends_on:
+      nginx:
+        condition: service_healthy
+      designer:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      schema-registry:
+        condition: service_healthy
+    environment:
+      DISABLE_EMBEDDED_EXAMPLES: true
+      NU_DESIGNER_ADDRESS: "nginx:8080"
+      FLINK_SQL_GATEWAY_ADDRESS: "flink-sql-gateway:8083"
+    volumes:
+      - ./scenarios/iceberg-example:/scenario-examples/iceberg-example
+      - nussknacker_designer_shared_configuration:/opt/nussknacker/conf/
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+
   nginx:
     image: nginx:1.26.0-alpine
     restart: unless-stopped
@@ -43,7 +69,7 @@ services:
     networks:
       - nussknacker-iceberg-net
     environment:
-      CONFIG_FILE: "/opt/nussknacker/conf/application.conf,/opt/nussknacker/conf/application-customizations.conf"
+      CONFIG_FILE: "/opt/nussknacker/conf/application.conf,/opt/nussknacker/conf/additional-configuration.conf,/opt/nussknacker/conf/application-customizations.conf"
       DB_URL: "jdbc:postgresql://postgres:5432/nu-db"
       DB_DRIVER: "org.postgresql.Driver"
       DB_USER: "nu"
@@ -77,6 +103,7 @@ services:
       interval: 10s
       retries: 10
     volumes:
+      - nussknacker_designer_shared_configuration:/opt/nussknacker/conf
       - ./designer/application-customizations.conf:/opt/nussknacker/conf/application-customizations.conf
     volumes_from:
       - flink-jobmanager
@@ -420,6 +447,8 @@ services:
 volumes:
   nussknacker_designer_data:
     name: nussknacker_designer_data
+  nussknacker_designer_shared_configuration:
+    name: nussknacker_designer_shared_configuration
   nussknacker_flink_data:
     name: nussknacker_flink_data
   nussknacker_minio_data:
