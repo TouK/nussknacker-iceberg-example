@@ -360,7 +360,7 @@ services:
     build:
       context: ./flink/
       args:
-        FLINK_VERSION: "1.18.1-scala_2.12-java11"
+        FLINK_VERSION: "1.19.1-scala_2.12-java11"
         FLINK_VERSION_SHORT: 1.18
         HADOOP_VERSION: 2.8.3
         FLINK_HADOOP_VERSION: "2.8.3-10.0"
