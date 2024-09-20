@@ -79,12 +79,15 @@ services:
       SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
       INFLUXDB_URL: "http://influxdb:8086"
       FLINK_REST_URL: "http://flink-jobmanager:8081"
-      JDK_JAVA_OPTIONS: "-Xmx1024M"
-      USAGE_REPORTS_SOURCE: "iceberg-docker-compose"
+      NESSIE_URL: "http://nessie:19120/api/v2"
+      S3_ENDPOINT: "http://minio:9000"
+      WAREHOUSE_URL: "s3://warehouse"
       AWS_ACCESS_KEY_ID: admin
       AWS_SECRET_ACCESS_KEY: password
       AWS_REGION: us-east-1
       AWS_DEFAULT_REGION: us-east-1
+      JDK_JAVA_OPTIONS: "-Xmx1024M"
+      USAGE_REPORTS_SOURCE: "iceberg-docker-compose"
     depends_on:
       postgres:
         condition: service_healthy
@@ -97,6 +100,13 @@ services:
       flink-jobmanager:
         condition: service_healthy
       flink-taskmanager:
+        condition: service_started
+      nessie:
+        condition: service_started
+    # For some reasons this dependency makes minio-setup stuck in Waiting state. Because of that only dependency to minio is used
+#      minio-setup:
+#        condition: service_completed_successfully
+      minio:
         condition: service_started
     healthcheck:
       test: [ "CMD-SHELL", "curl localhost:8080/api/app/healthCheck" ]
@@ -309,6 +319,10 @@ services:
       retries: 10
     volumes:
       - nussknacker_flink_data:/opt/flink/data
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
 
   flink-taskmanager:
     build:
@@ -392,6 +406,7 @@ services:
 
   minio:
     image: minio/minio:RELEASE.2024-06-26T01-06-18Z
+    restart: unless-stopped
     networks:
       nussknacker-iceberg-net:
         aliases:
@@ -412,7 +427,8 @@ services:
 
   minio-setup:
     depends_on:
-      - minio
+      minio:
+        condition: service_started
     image: minio/mc:RELEASE.2024-06-24T19-40-33Z
     networks:
       - nussknacker-iceberg-net
@@ -431,9 +447,10 @@ services:
 
   nessie:
     image: projectnessie/nessie:0.76.6
+    restart: unless-stopped
     depends_on:
-      postgres:
-        condition: service_healthy
+      postgres-setup:
+        condition: service_completed_successfully
     networks:
       - nussknacker-iceberg-net
     ports:
