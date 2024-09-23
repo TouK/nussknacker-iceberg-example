@@ -7,6 +7,9 @@ RUN echo '#!/bin/sh' > /ex-docker-entrypoint.sh && \
     echo 'export FLINK_PROPERTIES=$(cat /opt/flink/conf/flink-properties.yml) && /docker-entrypoint.sh "$@"' >> /ex-docker-entrypoint.sh && \
     chmod +x /ex-docker-entrypoint.sh
 
+#TODO: to remove, debug only
+RUN apt update && apt install -y openjdk-11-jdk && rm -rf /var/lib/apt/lists/*
+
 USER flink
 RUN mkdir -p /opt/flink/data && \
     chmod -R 777 /opt/flink/data
