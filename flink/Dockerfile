@@ -8,7 +8,6 @@ RUN echo '#!/bin/sh' > /ex-docker-entrypoint.sh && \
     chmod +x /ex-docker-entrypoint.sh
 
 USER flink
-COPY flink-properties.yml /opt/flink/conf/
 RUN mkdir -p /opt/flink/data && \
     chmod -R 777 /opt/flink/data
 
@@ -31,6 +30,8 @@ RUN curl -L "https://repo.maven.apache.org/maven2/org/apache/flink/flink-shaded-
 
 RUN curl -L "https://repo1.maven.org/maven2/software/amazon/awssdk/bundle/${AWS_SDK_VERSION}/bundle-${AWS_SDK_VERSION}.jar" \
    -o ${FLINK_HOME}/lib/bundle-${AWS_SDK_VERSION}.jar
+
+COPY flink-properties.yml /opt/flink/conf/
 
 VOLUME /opt/flink/data
 
