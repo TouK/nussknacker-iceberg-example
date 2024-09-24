@@ -3,7 +3,7 @@ name: nussknacker
 services:
 
   scanario-example-setup:
-    image: touk/nussknacker-example-scenarios-library:0.4.0-SNAPSHOT
+    image: touk/nussknacker-example-scenarios-library:0.4.0
     networks:
       - nussknacker-iceberg-net
     depends_on:
