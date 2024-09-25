@@ -27,6 +27,8 @@ metrics.scope.task: local.<host>.taskmanagerTask.<tm_id>.<job_name>.<task_name>.
 metrics.scope.operator: local.<host>.taskmanagerTask.<tm_id>.<job_name>.<operator_name>.<subtask_index>
 
 # iceberg-flink-runtime JAR has included other version of Dropwizard than Flink
+# Also, iceberg-flink-runtime is in both Flink libs and in Nussknacker's model which might cause ArrayStoreException
+# during (de)serialization of Iceberg object (see https://github.com/apache/iceberg/issues/11197)
 classloader.parent-first-patterns.additional: com.codahale.metrics;org.apache.iceberg;org.projectnessie
 
 # The default is 256m which is too low for our usage
