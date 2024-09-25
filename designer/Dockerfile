@@ -24,5 +24,3 @@ RUN curl -L https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-flink-runt
    -o /opt/nussknacker/components/flink/extra/iceberg-flink-runtime-${FLINK_VERSION_SHORT}-${ICEBERG_VERSION}.jar
 
 RUN chown -R demiourgos728:root /opt/nussknacker
-
-USER demiourgos728
