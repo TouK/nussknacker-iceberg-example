@@ -27,7 +27,7 @@ metrics.scope.task: local.<host>.taskmanagerTask.<tm_id>.<job_name>.<task_name>.
 metrics.scope.operator: local.<host>.taskmanagerTask.<tm_id>.<job_name>.<operator_name>.<subtask_index>
 
 # iceberg-flink-runtime JAR has included other version of Dropwizard than Flink
-classloader.parent-first-patterns.additional: com.codahale.metrics
+classloader.parent-first-patterns.additional: com.codahale.metrics;org.apache.iceberg;org.projectnessie
 
 # The default is 256m which is too low for our usage
 jobmanager.memory.jvm-metaspace.size: 1g
