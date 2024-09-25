@@ -31,7 +31,7 @@ metrics.scope.operator: local.<host>.taskmanagerTask.<tm_id>.<job_name>.<operato
 # during (de)serialization of Iceberg object (see https://github.com/apache/iceberg/issues/11197)
 classloader.parent-first-patterns.additional: com.codahale.metrics;org.apache.iceberg;org.projectnessie
 
-# The default is 256m which is too low for our usage
+# The default is 256m for metaspace. It is too low for our usage
 jobmanager.memory.process.size: 2g
 jobmanager.memory.jvm-metaspace.size: 1g
 taskmanager.memory.process.size: 2g
