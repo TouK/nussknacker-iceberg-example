@@ -355,6 +355,7 @@ services:
       resources:
         limits:
           memory: 2048M
+<<<<<<< HEAD
 
   flink-sql-gateway:
     build:
@@ -386,6 +387,8 @@ services:
       resources:
         limits:
           memory: 1024M
+=======
+>>>>>>> origin/iceberg-poc
 
   telegraf:
     image: telegraf:1.30.2
