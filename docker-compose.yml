@@ -33,8 +33,8 @@ services:
       context: ./designer/
       args:
         NUSSKNACKER_VERSION: ${NUSSKNACKER_VERSION:?NUSSKNACKER_VERSION must be defined}
-        FLINK_VERSION: "1.18.1-scala_2.12-java11"
-        FLINK_VERSION_SHORT: 1.18
+        FLINK_VERSION: "1.19.1-scala_2.12-java11"
+        FLINK_VERSION_SHORT: 1.19
         HADOOP_VERSION: 2.8.3
         FLINK_HADOOP_VERSION: "2.8.3-10.0"
         AWS_SDK_VERSION: 2.26.10
@@ -327,7 +327,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1024M
+          memory: 2048M
 
   telegraf:
     image: telegraf:1.30.2

@@ -11,9 +11,6 @@ ARG ICEBERG_VERSION="ICEBERG_VERSION_IS_UNDEFINED"
 
 USER root
 
-RUN curl -L https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-flink-runtime-${FLINK_VERSION_SHORT}/${ICEBERG_VERSION}/iceberg-flink-runtime-${FLINK_VERSION_SHORT}-${ICEBERG_VERSION}.jar \
-   -o /opt/nussknacker/components/flink/extra/iceberg-flink-runtime-${FLINK_VERSION_SHORT}-${ICEBERG_VERSION}.jar
-
 RUN curl -L "https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-common/${HADOOP_VERSION}/hadoop-common-${HADOOP_VERSION}.jar" \
    -o /opt/nussknacker/lib/hadoop-common-${HADOOP_VERSION}.jar
 
@@ -22,6 +19,9 @@ RUN curl -L "https://repo.maven.apache.org/maven2/org/apache/flink/flink-shaded-
 
 RUN curl -L "https://repo1.maven.org/maven2/software/amazon/awssdk/bundle/${AWS_SDK_VERSION}/bundle-${AWS_SDK_VERSION}.jar" \
    -o /opt/nussknacker/lib/bundle-${AWS_SDK_VERSION}.jar
+
+RUN curl -L https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-flink-runtime-${FLINK_VERSION_SHORT}/${ICEBERG_VERSION}/iceberg-flink-runtime-${FLINK_VERSION_SHORT}-${ICEBERG_VERSION}.jar \
+   -o /opt/nussknacker/components/flink/extra/iceberg-flink-runtime-${FLINK_VERSION_SHORT}-${ICEBERG_VERSION}.jar
 
 RUN chown -R demiourgos728:root /opt/nussknacker
 
