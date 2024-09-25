@@ -22,9 +22,9 @@ RUN curl -L "https://repo1.maven.org/maven2/software/amazon/awssdk/bundle/${AWS_
 
 #RUN curl -L https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-flink-runtime-${FLINK_VERSION_SHORT}/${ICEBERG_VERSION}/iceberg-flink-runtime-${FLINK_VERSION_SHORT}-${ICEBERG_VERSION}.jar \
 #   -o /opt/nussknacker/components/flink/extra/iceberg-flink-runtime-${FLINK_VERSION_SHORT}-${ICEBERG_VERSION}.jar
-#RUN curl -L https://repository.apache.org/content/groups/snapshots/org/apache/iceberg/iceberg-flink-runtime-${FLINK_VERSION_SHORT}/1.7.0-SNAPSHOT/iceberg-flink-runtime-${FLINK_VERSION_SHORT}-${ICEBERG_VERSION}.jar \
-#   -o /opt/nussknacker/components/flink/extra/iceberg-flink-runtime-${FLINK_VERSION_SHORT}-${ICEBERG_VERSION}.jar
-COPY iceberg-flink-runtime-1.19-1.7.0-SNAPSHOT.jar /opt/nussknacker/components/flink/extra/
+RUN curl -L https://repository.apache.org/content/groups/snapshots/org/apache/iceberg/iceberg-flink-runtime-${FLINK_VERSION_SHORT}/1.7.0-SNAPSHOT/iceberg-flink-runtime-${FLINK_VERSION_SHORT}-${ICEBERG_VERSION}.jar \
+   -o /opt/nussknacker/components/flink/extra/iceberg-flink-runtime-${FLINK_VERSION_SHORT}-${ICEBERG_VERSION}.jar
+#COPY iceberg-flink-runtime-1.19-1.7.0-SNAPSHOT.jar /opt/nussknacker/components/flink/extra/
 
 RUN chown -R demiourgos728:root /opt/nussknacker
 
