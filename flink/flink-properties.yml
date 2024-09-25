@@ -32,4 +32,7 @@ metrics.scope.operator: local.<host>.taskmanagerTask.<tm_id>.<job_name>.<operato
 classloader.parent-first-patterns.additional: com.codahale.metrics;org.apache.iceberg;org.projectnessie
 
 # The default is 256m which is too low for our usage
+jobmanager.memory.process.size: 2g
 jobmanager.memory.jvm-metaspace.size: 1g
+taskmanager.memory.process.size: 2g
+taskmanager.memory.jvm-metaspace.size: 1g
