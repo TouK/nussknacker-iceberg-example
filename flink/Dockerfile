@@ -37,7 +37,7 @@ RUN curl -L https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-flink-runt
    -o ${FLINK_HOME}/lib/iceberg-flink-runtime-${FLINK_VERSION_SHORT}-${ICEBERG_VERSION}.jar
 
 RUN curl -L https://repo1.maven.org/maven2/pl/touk/nussknacker/nussknacker-flink-metrics-deferred-reporter/${NU_DEFERRED_REPORTER_VERSION}/nussknacker-flink-metrics-deferred-reporter-${NU_DEFERRED_REPORTER_VERSION}.jar \
-   -o ${FLINK_HOME}/plugins/nussknacker-flink-metrics-deferred-reporter-${NU_DEFERRED_REPORTER_VERSION}.jar
+   -o ${FLINK_HOME}/plugins/metrics-influx/nussknacker-flink-metrics-deferred-reporter-${NU_DEFERRED_REPORTER_VERSION}.jar
 
 COPY flink-properties.yml /opt/flink/conf/
 
