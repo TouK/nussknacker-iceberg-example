@@ -19,6 +19,7 @@ ARG HADOOP_VERSION="HADOOP_VERSION_IS_UNDEFINED"
 ARG FLINK_HADOOP_VERSION="FLINK_HADOOP_VERSION_IS_UNDEFINED"
 ARG AWS_SDK_VERSION="AWS_SDK_VERSION_IS_UNDEFINED"
 ARG ICEBERG_VERSION="ICEBERG_VERSION_IS_UNDEFINED"
+ARG NU_DEFERRED_REPORTER_VERSION="NU_DEFERRED_REPORTER_VERSION_IS_UNDEFINED"
 
 RUN curl -L "https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-common/${HADOOP_VERSION}/hadoop-common-${HADOOP_VERSION}.jar" \
    -o ${FLINK_HOME}/lib/hadoop-common-${HADOOP_VERSION}.jar
@@ -34,6 +35,9 @@ RUN curl -L https://github.com/knaufk/flink-faker/releases/download/v${FAKER_VER
 
 RUN curl -L https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-flink-runtime-${FLINK_VERSION_SHORT}/${ICEBERG_VERSION}/iceberg-flink-runtime-${FLINK_VERSION_SHORT}-${ICEBERG_VERSION}.jar \
    -o ${FLINK_HOME}/lib/iceberg-flink-runtime-${FLINK_VERSION_SHORT}-${ICEBERG_VERSION}.jar
+
+RUN curl -L https://repo1.maven.org/maven2/pl/touk/nussknacker/nussknacker-flink-metrics-deferred-reporter/${NU_DEFERRED_REPORTER_VERSION}/nussknacker-flink-metrics-deferred-reporter-${NU_DEFERRED_REPORTER_VERSION}.jar \
+   -o ${FLINK_HOME}/plugins/nussknacker-flink-metrics-deferred-reporter-${NU_DEFERRED_REPORTER_VERSION}.jar
 
 COPY flink-properties.yml /opt/flink/conf/
 
