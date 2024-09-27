@@ -60,7 +60,7 @@ services:
       AWS_SECRET_ACCESS_KEY: password
       AWS_REGION: us-east-1
       AWS_DEFAULT_REGION: us-east-1
-      JDK_JAVA_OPTIONS: "-Xmx1024M"
+      JDK_JAVA_OPTIONS: "-Xmx2048M"
       USAGE_REPORTS_SOURCE: "iceberg-docker-compose"
     depends_on:
       postgres:
@@ -93,7 +93,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1024M
+          memory: 2048M
 
   postgres:
     image: postgres:13
